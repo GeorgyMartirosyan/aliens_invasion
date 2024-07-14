@@ -1,3 +1,5 @@
+import random
+
 class Settings:
     """ Класс для хранения всех настроек игры Alien Invasion. """
 
@@ -12,15 +14,15 @@ class Settings:
         self.ship_speed_factor = 1.5
 
         # Параметры пули.
-        self.bullet_speed_factor = 0.7 # 0.7
+        self.bullet_speed_factor = 0.9 # 0.7
         self.bullet_width = 3 # 3
         self.bullet_height = 15
         self.bullet_color = 60, 60, 60
-        self.bullets_allowed = 3
+        self.bullets_allowed = 2
 
         # Параметры пришельцов.
-        self.alien_speed_factor = 0.7
-        self.fleet_drop_speed = 3
+        self.alien_speed_factor = 0.9
+        self.fleet_drop_speed = 20
         # fleet_direction = 1, означает передвижение вправо; а -1 - влево.
         self.fleet_direction = 1
         self.ship_limit = 3
@@ -36,8 +38,8 @@ class Settings:
     def initialize_dynamic_settings(self):
         """ Инициализирует настройки, изменяющиеся в ходе игры. """
         self.ship_speed_factor = 1.5
-        self.bullet_speed_factor = 0.5
-        self.alien_speed_factor = 0.7
+        self.bullet_speed_factor = 0.9
+        self.alien_speed_factor = 0.9
         self.alien_points = 50
 
     def increase_speed(self):
@@ -46,3 +48,10 @@ class Settings:
         self.bullet_speed_factor *= self.speedup_scale
         self.alien_speed_factor *= self.speedup_scale
         self.alien_points *= self.score_scale
+
+    def reduce_speed(self):
+        """ Уменьшает настройки скорости и стоимости пришельцев."""
+        self.ship_speed_factor /= self.speedup_scale
+        self.bullet_speed_factor /= self.speedup_scale
+        self.alien_speed_factor /= self.speedup_scale
+        self.alien_points /= self.score_scale

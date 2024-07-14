@@ -1,5 +1,6 @@
 import sys
 import pygame
+import random
 
 from bullet import Bullet
 from alien import Alien
@@ -93,6 +94,15 @@ def update_screen(ai_settings, screen, stats, sb, ship, aliens, bullets, play_bu
 
     pygame.display.flip() # Отображение последнего прорисованного экрана.
 
+def random_setting_before_skeep_level(ai_settings):
+    number = random.randint(1, 10)
+    if number < 3:
+        ai_settings.reduce_speed()
+        print('-')
+    elif number >= 3:
+        ai_settings.increase_speed()
+        print('+')
+
 def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, bullets):
     """ Обработка коллизий пуль с пришельцами. """
     # Удаление пуль и пришельцев, участвующих в коллизиях.
@@ -106,7 +116,7 @@ def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, 
     if len(aliens) == 0:
         # Если весь флот уничтожен, начинается следующий уровень.
         bullets.empty()
-        ai_settings.increase_speed()
+        random_setting_before_skeep_level(ai_settings)
 
         # Увеличение уровня.
         stats.level += 1
